@@ -1,5 +1,5 @@
 import "./style.css";
-import * as monaco from "monaco-editor";
+import { monaco } from "./editor";
 import EditorWorker from "monaco-editor/esm/vs/editor/editor.worker?worker";
 import { debounce } from "throttle-debounce";
 
