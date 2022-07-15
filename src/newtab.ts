@@ -1,23 +1,46 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import { setupCounter } from './counter'
+import "./style.css";
+import * as monaco from "monaco-editor";
+import EditorWorker from "monaco-editor/esm/vs/editor/editor.worker?worker";
+import { debounce } from "throttle-debounce";
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+declare global {
+  interface Window {
+    MonacoEnvironment: any;
+  }
+}
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+self.MonacoEnvironment = {
+  getWorker() {
+    return new EditorWorker();
+  },
+};
+
+const element = document.getElementById("editor")!;
+
+const editor = monaco.editor.create(element, {
+  autoIndent: "full",
+  automaticLayout: true,
+  fontSize: 18,
+  language: "markdown",
+  lineDecorationsWidth: 0,
+  lineHeight: 1.6,
+  minimap: { enabled: false },
+  padding: { bottom: 16, top: 16 },
+  quickSuggestions: false,
+  theme: "vs-dark",
+  wordWrap: "on",
+});
+
+const debounceFunction = debounce(400, () => {
+  const content = editor.getValue();
+  chrome.runtime.sendMessage({
+    payload: { content },
+    type: "saveContent",
+  });
+});
+
+editor.onDidChangeModelContent(debounceFunction);
+
+chrome.runtime.sendMessage({ type: "loadContent" }, ({ content }) => {
+  editor.setValue(content);
+});

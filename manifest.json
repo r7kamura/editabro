@@ -3,7 +3,11 @@
   "description": "Memo editor in new tab.",
   "version": "0.0.1",
   "manifest_version": 3,
-  "chrome_url_overrides" : {
-    "newtab": "src/newtab.html"
-  }
+  "background": {
+    "service_worker": "src/background.ts"
+  },
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "permissions": ["storage"]
 }
