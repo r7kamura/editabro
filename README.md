@@ -7,17 +7,17 @@ Editor in new tab.
 Editabro is a browser extension to change the new tab page to an editor.
 
 - So simple
-    - No configuration
-    - No file
-    - No mode
+  - No configuration
+  - No file
+  - No mode
 - Crash safe
-    - Text is automatically persisted with `chrome.storage.sync`
+  - Text is automatically persisted with `chrome.storage.sync`
 - Dark mode support
-    - Automatically enabled by your OS settings
+  - Automatically enabled by your OS settings
 - Markdown highlighting
-    - Of course, you can use it as a normal plain text editor
+  - Of course, you can use it as a normal plain text editor
 - and other VSCode derived features
-    - Using the same editor with Visual Studio Code
+  - Using the same editor with Visual Studio Code
 
 ## Usage
 
