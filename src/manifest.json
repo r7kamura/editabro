@@ -7,7 +7,7 @@
     "service_worker": "src/background.ts"
   },
   "chrome_url_overrides": {
-    "newtab": "newtab.html"
+    "newtab": "src/newtab.html"
   },
   "permissions": ["storage"]
 }
