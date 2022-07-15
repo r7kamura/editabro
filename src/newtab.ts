@@ -27,7 +27,6 @@ const editor = monaco.editor.create(element, {
   minimap: { enabled: false },
   padding: { bottom: 16, top: 16 },
   quickSuggestions: false,
-  theme: "vs-dark",
   wordWrap: "on",
 });
 
@@ -44,3 +43,22 @@ editor.onDidChangeModelContent(debounceFunction);
 chrome.runtime.sendMessage({ type: "loadContent" }, ({ content }) => {
   editor.setValue(content);
 });
+
+if (window.matchMedia) {
+  setTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);
+}
+
+window
+  .matchMedia("(prefers-color-scheme: dark)")
+  .addEventListener("change", (event) => {
+    setTheme(event.matches);
+  });
+
+function setTheme(isDark: boolean) {
+  const theme = themeFor(isDark);
+  monaco.editor.setTheme(theme);
+}
+
+function themeFor(isDark: boolean) {
+  return isDark ? "vs-dark" : "vs";
+}
