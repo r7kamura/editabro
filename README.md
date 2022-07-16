@@ -21,10 +21,7 @@ Editabro is a browser extension to change the new tab page to an editor.
 
 ### Installation
 
-~Install from Chrome Web Store.~
-
-This extension is not yet released on Chrome Web Store.
-Manually build the extension and install it according to the Development section.
+~Install from Chrome Web Store.~ Coming soon!
 
 ### Supported browsers
 
