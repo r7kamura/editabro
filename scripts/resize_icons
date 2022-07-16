@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+
+convert -resize "16x16!" images/icon{,-16}.png
+convert -resize "32x32!" images/icon{,-32}.png
+convert -resize "48x48!" images/icon{,-48}.png
+convert -resize "128x128!" images/icon{,-128}.png
