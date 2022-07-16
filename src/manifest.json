@@ -1,0 +1,13 @@
+{
+  "name": "Editabro",
+  "description": "Editor in new tab.",
+  "version": "0.0.1",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "src/background.ts"
+  },
+  "chrome_url_overrides": {
+    "newtab": "src/newtab.html"
+  },
+  "permissions": ["storage"]
+}
