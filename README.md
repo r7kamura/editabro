@@ -11,13 +11,13 @@ Editabro is a browser extension to change the new tab page to an editor.
   - No file
   - No mode
 - Crash safe
-  - Text is automatically persisted with `chrome.storage.sync`
+  - Text is persisted in browser
 - Dark mode support
-  - Automatically enabled by your OS settings
+  - Enabled by your OS settings
 - Markdown highlighting
   - Of course, you can use it as a normal plain text editor
-- and other VSCode derived features
-  - Using the same editor with Visual Studio Code
+- VSCode derived features
+  - Using Visual Studio Code based editor
 
 ## Usage
 
@@ -49,12 +49,6 @@ Build the extension to `./dist/` directory for development use (e.g. with HMR).
 
 ```
 npm run dev
-```
-
-If you want to change port, you can use `-- --port <PORT>` option.
-
-```
-npm run dev -- --port 4000
 ```
 
 Then load `./dist/` directory as an extension from extensions settings page in your browser.
