@@ -2,7 +2,9 @@
 
 Editor in new tab.
 
-![](images/screenshot.png)
+<img src="images/logo.png" alt="logo" width="256" height="256">
+
+## Features
 
 Editabro is a browser extension to change the new tab page to an editor.
 
@@ -19,6 +21,8 @@ Editabro is a browser extension to change the new tab page to an editor.
 - VSCode derived features
   - Using Visual Studio Code based editor
 
+![](images/screenshot.png)
+
 ## Usage
 
 ### Installation
@@ -29,7 +33,6 @@ This extension is not yet released on Chrome Web Store.
 Manually build the extension and install it according to the Development section.
 
 ### Supported browsers
-
 Now only Chrome is supported, but pull requests are welcome for other browsers.
 
 ## Development
