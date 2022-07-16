@@ -33,6 +33,7 @@ This extension is not yet released on Chrome Web Store.
 Manually build the extension and install it according to the Development section.
 
 ### Supported browsers
+
 Now only Chrome is supported, but pull requests are welcome for other browsers.
 
 ## Development
