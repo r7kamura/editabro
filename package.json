@@ -13,12 +13,12 @@
     "@crxjs/vite-plugin": "^1.0.12",
     "@types/chrome": "^0.0.193",
     "@types/throttle-debounce": "^5.0.0",
+    "prettier": "^2.7.1",
     "typescript": "^4.6.4",
     "vite": "^2.9.0"
   },
   "dependencies": {
     "monaco-editor": "^0.33.0",
-    "prettier": "^2.7.1",
     "throttle-debounce": "^5.0.0"
   }
 }
