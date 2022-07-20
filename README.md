@@ -10,7 +10,8 @@ Editabro is a browser extension to change the new tab page to an editor.
 
 - No file
 - No config
-- Persisted in browser
+- Auto-save in browser
+- Sync within chrome account
 - Dark mode support
 - Markdown highlighting
 - VSCode derived features
