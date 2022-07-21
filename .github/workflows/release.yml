@@ -1,0 +1,34 @@
+name: release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm ci
+      - run: npx prettier --check .
+      - run: npm run build
+      - uses: salsify/action-detect-and-tag-new-version@v2
+        id: tag-new-version
+        with:
+          version-command: cat public/manifest.json | jq -r .version
+      - uses: vimtor/action-zip@v1
+        with:
+          dest: dist.zip
+          files: dist/
+        if: ${{ steps.tag-new-version.outputs.tag }}
+      - uses: softprops/action-gh-release@v1
+        with:
+          files: dist.zip
+          tag_name: ${{ steps.tag-new-version.outputs.tag }}
+        if: ${{ steps.tag-new-version.outputs.tag }}
