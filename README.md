@@ -13,8 +13,7 @@ Editabro is a browser extension to change the new tab page to an editor.
 - Auto-save in browser
 - Sync within chrome account
 - Dark mode support
-- Markdown highlighting
-- VSCode derived features
+- Markdown support
 
 ![](images/screenshot.png)
 
@@ -25,6 +24,13 @@ Editabro is a browser extension to change the new tab page to an editor.
 Install from Chrome Web Store:
 
 - <https://chrome.google.com/webstore/detail/editabro/eodgdnjgkjjlohklhoaapfhghgcoihmf>
+
+### Command palette
+
+There are a lot of VSCode derived features.
+Press <kbd>F1</kbd> to open the command palette, then search commands and their shortcut keys.
+
+![](images/command-palette.gif)
 
 ### Supported browsers
 
