@@ -30,5 +30,6 @@ jobs:
       - uses: softprops/action-gh-release@v1
         with:
           files: dist.zip
+          generate_release_notes: true
           tag_name: ${{ steps.tag-new-version.outputs.tag }}
         if: ${{ steps.tag-new-version.outputs.tag }}
