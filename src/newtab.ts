@@ -1,5 +1,6 @@
 import "./style.css";
 import { monaco } from "./editor";
+import { MarkdownExtension } from "./extensions";
 import EditorWorker from "monaco-editor/esm/vs/editor/editor.worker?worker";
 import { debounce } from "throttle-debounce";
 
@@ -29,6 +30,9 @@ const editor = monaco.editor.create(element, {
   quickSuggestions: false,
   wordWrap: "on",
 });
+
+const extension = new MarkdownExtension();
+extension.activate(editor);
 
 const debounceFunction = debounce(400, () => {
   const content = editor.getValue();
