@@ -21,7 +21,7 @@ jobs:
       - uses: salsify/action-detect-and-tag-new-version@v2
         id: tag-new-version
         with:
-          version-command: cat public/manifest.json | jq -r .version
+          version-command: cat src/manifest.json | jq -r .version
       - uses: vimtor/action-zip@v1
         with:
           dest: dist.zip
