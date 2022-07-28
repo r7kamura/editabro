@@ -6,12 +6,18 @@ changelog:
     - title: Changed
       labels:
         - change
-    - title: Removed
+    - title: Deprecated
       labels:
-        - remove
+        - deprecated
     - title: Fixed
       labels:
         - fix
+    - title: Removed
+      labels:
+        - remove
+    - title: Security
+      labels:
+        - security
     - title: Others
       labels:
         - "*"
