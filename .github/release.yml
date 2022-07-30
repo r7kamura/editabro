@@ -8,7 +8,7 @@ changelog:
         - change
     - title: Deprecated
       labels:
-        - deprecated
+        - deprecate
     - title: Fixed
       labels:
         - fix
