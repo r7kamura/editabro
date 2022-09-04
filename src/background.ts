@@ -1,7 +1,9 @@
+import { contentKey } from "./constants";
+
 chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
   switch (request.type) {
     case "loadContent":
-      chrome.storage.sync.get("content", ({ content }) => {
+      chrome.storage.sync.get(contentKey, ({ [contentKey]: content }) => {
         sendResponse({
           content: content || "",
         });
@@ -9,7 +11,7 @@ chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
       return true;
     case "saveContent":
       chrome.storage.sync.set({
-        content: request.payload.content,
+        [contentKey]: request.payload.content,
       });
       break;
   }
