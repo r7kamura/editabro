@@ -3,6 +3,7 @@ import { monaco } from "./editor";
 import { MarkdownExtension } from "./extensions";
 import EditorWorker from "monaco-editor/esm/vs/editor/editor.worker?worker";
 import { debounce } from "throttle-debounce";
+import { contentKey } from "./constants";
 
 declare global {
   interface Window {
@@ -46,6 +47,15 @@ editor.onDidChangeModelContent(debounceFunction);
 
 chrome.runtime.sendMessage({ type: "loadContent" }, ({ content }) => {
   editor.setValue(content);
+});
+
+chrome.storage.onChanged.addListener((changes, namespace) => {
+  if (namespace !== "sync") return;
+  const content = changes[contentKey];
+  if (!content) return;
+  const { newValue } = content;
+  if (editor.getValue() === newValue) return;
+  editor.setValue(newValue);
 });
 
 if (window.matchMedia) {
