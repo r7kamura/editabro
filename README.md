@@ -71,9 +71,9 @@ but I'm developing in the following environment with WSL2:
 
 ```console
 $ node -v
-v18.0.0
+v20.12.2
 $ npm -v
-8.6.0
+10.5.0
 $ grep PRETTY_NAME /etc/os-release
-PRETTY_NAME="Ubuntu 20.04.1 LTS"
+PRETTY_NAME="Ubuntu 22.04.4 LTS"
 ```
