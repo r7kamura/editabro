@@ -1,7 +1,7 @@
 {
   "name": "Editabro",
   "description": "Editor in new tab.",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "manifest_version": 3,
   "icons": {
     "16": "images/icon-16.png",
