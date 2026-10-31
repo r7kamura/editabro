@@ -5,3 +5,26 @@ body {
 #editor {
   height: 100vh;
 }
+
+#editor .cm-editor {
+  height: 100%;
+  font-size: 18px;
+}
+
+#editor .cm-editor.cm-focused {
+  outline: none;
+}
+
+#editor .cm-scroller {
+  line-height: 1.6;
+}
+
+#editor .cm-content {
+  padding: 16px 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #282c34;
+  }
+}
