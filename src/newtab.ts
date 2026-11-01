@@ -9,24 +9,40 @@ const editor = document.getElementById("editor") as HTMLTextAreaElement;
 const saved = new Set<string>();
 let pending: string | null = null;
 let composing = false;
+let dirty = false;
 
-const save = debounce(400, () => {
+function saveNow() {
+  save.cancel();
+  if (!dirty) return;
+  dirty = false;
   const content = editor.value;
   saved.add(content);
   if (saved.size > 20) saved.delete(saved.values().next().value!);
   chrome.runtime.sendMessage({ payload: { content }, type: "saveContent" });
-});
+}
+
+const save = debounce(400, saveNow);
 
 editor.addEventListener("input", () => {
   // Local edits win over content from other tabs not yet applied.
   pending = null;
+  dirty = true;
   save();
 });
 editor.addEventListener("compositionstart", () => (composing = true));
 editor.addEventListener("compositionend", () => (composing = false));
 editor.addEventListener("blur", () => {
+  saveNow();
   if (pending !== null) applyRemote(pending);
 });
+
+// Save pending edits right away when the user leaves the tab, instead of
+// waiting for the debounce, which may never fire once the tab is hidden.
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "hidden") saveNow();
+});
+window.addEventListener("pagehide", saveNow);
+window.addEventListener("beforeunload", saveNow);
 
 // Apply content from storage without replacing the whole value, and never
 // while the user is typing or composing, so the cursor and IME stay intact.
