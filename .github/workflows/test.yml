@@ -6,14 +6,20 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7.1.0
         with:
           node-version: 20
+          cache: npm
       - run: npm ci
       - run: npx prettier --check .
       - run: npm run build
