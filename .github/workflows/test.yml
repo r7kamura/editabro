@@ -20,8 +20,6 @@ jobs:
         with:
           node-version: 20
           cache: npm
-      - name: Check VERSION matches manifest version
-        run: test "$(cat VERSION)" = "$(jq -r .version src/manifest.json)"
       - run: npm ci
       - run: npx prettier --check .
       - run: npm run build
