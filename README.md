@@ -1,69 +1,28 @@
 # Editabro
 
-Editor in new tab.
+A new tab page that is just a plain textarea.
 
 <img src="images/logo.png" alt="logo" width="256" height="256">
 
 ## Features
 
-Editabro is a browser extension to change the new tab page to a plain textarea.
+- Saves automatically as you type.
+- Syncs between computers signed in to the same Chrome account.
+- Follows your system's light or dark mode.
+- No files or settings to manage.
 
-- No file
-- No config
-- Auto-save in browser
-- Sync within chrome account
-- Dark mode support
+## Installation
 
-## Usage
-
-### Installation
-
-Install from Chrome Web Store:
+Install from the Chrome Web Store:
 
 - <https://chrome.google.com/webstore/detail/editabro/eodgdnjgkjjlohklhoaapfhghgcoihmf>
 
-### Supported browsers
-
-Now only Chrome is supported, but pull requests are welcome for other browsers.
-
 ## Development
-
-### Setup
-
-This extension is built with TypeScript, Vite, and so on.
-Install dependencies with:
 
 ```
 npm install
-```
-
-### Build for development
-
-Build the extension to `./dist/` directory for development use (e.g. with HMR).
-
-```
 npm run dev
-```
-
-Then load `./dist/` directory as an extension from extensions settings page in your browser.
-You may need to enable development mode to do this operation.
-
-### Build for production
-
-```
 npm run build
 ```
 
-### Other information
-
-There are no strict restrictions on Node.js version or other dependencies,
-but I'm developing in the following environment with WSL2:
-
-```console
-$ node -v
-v20.12.2
-$ npm -v
-10.5.0
-$ grep PRETTY_NAME /etc/os-release
-PRETTY_NAME="Ubuntu 22.04.4 LTS"
-```
+Load `dist/` as an unpacked extension from `chrome://extensions`.
