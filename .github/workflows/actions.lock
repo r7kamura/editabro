@@ -9,8 +9,6 @@ workflows:
     '.github/workflows/test.yml':
         - 'actions/checkout@v7.0.1'
         - 'actions/setup-node@v7.1.0'
-    '.github/workflows/verify-lockfile.yml':
-        - 'actions/checkout@v7.0.1'
 dependencies:
     'actions/checkout@v3':
         ref: 'v3'
