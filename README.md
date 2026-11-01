@@ -2,8 +2,6 @@
 
 A new tab page that is just a plain textarea.
 
-<img src="images/logo.png" alt="logo" width="256" height="256">
-
 ## Features
 
 - Saves automatically as you type.
