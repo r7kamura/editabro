@@ -1,78 +1,64 @@
 import "./style.css";
-import { monaco } from "./editor";
-import { MarkdownExtension } from "./extensions";
-import EditorWorker from "monaco-editor/esm/vs/editor/editor.worker?worker";
 import { debounce } from "throttle-debounce";
 import { contentKey } from "./constants";
+import { diff } from "./sync";
 
-declare global {
-  interface Window {
-    MonacoEnvironment: any;
+const editor = document.getElementById("editor") as HTMLTextAreaElement;
+
+// Values this tab saved, so their storage change events can be ignored.
+const saved = new Set<string>();
+let pending: string | null = null;
+let composing = false;
+
+const save = debounce(400, () => {
+  const content = editor.value;
+  saved.add(content);
+  if (saved.size > 20) saved.delete(saved.values().next().value!);
+  chrome.runtime.sendMessage({ payload: { content }, type: "saveContent" });
+});
+
+editor.addEventListener("input", () => {
+  // Local edits win over content from other tabs not yet applied.
+  pending = null;
+  save();
+});
+editor.addEventListener("compositionstart", () => (composing = true));
+editor.addEventListener("compositionend", () => (composing = false));
+editor.addEventListener("blur", () => {
+  if (pending !== null) applyRemote(pending);
+});
+
+// Apply content from storage without replacing the whole value, and never
+// while the user is typing or composing, so the cursor and IME stay intact.
+function applyRemote(content: string) {
+  if (document.activeElement === editor || composing) {
+    pending = content;
+    return;
   }
+  pending = null;
+  replaceWith(content);
 }
 
-self.MonacoEnvironment = {
-  getWorker() {
-    return new EditorWorker();
-  },
-};
-
-const element = document.getElementById("editor")!;
-
-const editor = monaco.editor.create(element, {
-  autoIndent: "full",
-  automaticLayout: true,
-  fontSize: 18,
-  language: "markdown",
-  lineDecorationsWidth: 0,
-  lineHeight: 1.6,
-  minimap: { enabled: false },
-  padding: { bottom: 16, top: 16 },
-  quickSuggestions: false,
-  wordWrap: "on",
-});
-
-const extension = new MarkdownExtension();
-extension.activate(editor);
-
-const debounceFunction = debounce(400, () => {
-  const content = editor.getValue();
-  chrome.runtime.sendMessage({
-    payload: { content },
-    type: "saveContent",
-  });
-});
-
-editor.onDidChangeModelContent(debounceFunction);
+function replaceWith(content: string) {
+  const change = diff(editor.value, content);
+  if (!change) return;
+  editor.setRangeText(change.insert, change.from, change.to, "preserve");
+}
 
 chrome.runtime.sendMessage({ type: "loadContent" }, ({ content }) => {
-  editor.setValue(content);
+  replaceWith(content);
+  editor.setSelectionRange(0, 0);
+  editor.focus();
 });
 
 chrome.storage.onChanged.addListener((changes, namespace) => {
   if (namespace !== "sync") return;
   const content = changes[contentKey];
   if (!content) return;
-  const { newValue } = content;
-  if (editor.getValue() === newValue) return;
-  editor.setValue(newValue);
+  if (saved.has(content.newValue)) return;
+  if (content.newValue === editor.value) {
+    pending = null;
+    return;
+  }
+  applyRemote(content.newValue);
 });
-
-if (window.matchMedia) {
-  setTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);
-}
-
-window
-  .matchMedia("(prefers-color-scheme: dark)")
-  .addEventListener("change", (event) => {
-    setTheme(event.matches);
-  });
-
-function setTheme(isDark: boolean) {
-  const theme = themeFor(isDark);
-  monaco.editor.setTheme(theme);
-}
-
-function themeFor(isDark: boolean) {
-  return isDark ? "vs-dark" : "vs";
-}

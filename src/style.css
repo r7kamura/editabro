@@ -1,7 +1,21 @@
+:root {
+  color-scheme: light dark;
+}
+
 body {
   margin: 0;
 }
 
 #editor {
+  border: none;
+  box-sizing: border-box;
+  display: block;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 18px;
   height: 100vh;
+  line-height: 1.6;
+  outline: none;
+  padding: 16px;
+  resize: none;
+  width: 100%;
 }
