@@ -1,0 +1,25 @@
+name: bump-request
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version to change to.
+        required: true
+        type: string
+
+permissions: {}
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: r7kamura/bump-request@v0.7.1
+        with:
+          command: |
+            sed -i -E "s/^(  \"version\": )\"[^\"]+\"/\1\"$VERSION\"/" src/manifest.json
+          version: ${{ inputs.version }}
