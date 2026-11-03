@@ -3,6 +3,8 @@
 # Docs: https://gh.io/actions-lockfile
 version: 'v0.0.3'
 workflows:
+    '.github/workflows/bump.yml':
+        - 'actions/checkout@v7.0.1'
     '.github/workflows/github-label-sync.yml':
         - 'r7kamura/github-label-sync-action@v0.1.0'
     '.github/workflows/release.yml': []
